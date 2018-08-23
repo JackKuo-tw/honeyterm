@@ -1,7 +1,5 @@
 FROM ubuntu:14.04
 
-
-
 ADD showterm.tar /root
 ADD honeypot.tar /root
 

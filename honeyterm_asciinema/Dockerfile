@@ -28,7 +28,7 @@ RUN cd /etc/rc3.d && ln -s ../init.d/ssh S99ssh
 RUN cd /etc/rc3.d && ln -s ../init.d/rsyslog S99rsyslogd
 
 # Install asciinema via modified package
-Run python3 /root/asciinema/setup.py install
+RUN python3 /root/asciinema/setup.py install
 
 RUN /root/honeypot/setup.sh
 RUN cp /root/honeypot/pwreveal.py /lib/security
