@@ -24,6 +24,7 @@ for CID in $(/usr/bin/docker ps -a --no-trunc | grep "honeypot-" | cut -f1 -d" "
         mkdir -p /var/log/honeypot/$REMOTE_HOST
         # Save asciiname.json
         docker cp $CID:/tmp/asciinema.json /var/log/honeypot/$REMOTE_HOST/asciinema_$CID.json > /dev/null 2>&1
+        docker cp $CID:/tmp/login /var/log/honeypot/$REMOTE_HOST/login_$CID > /dev/null 2>&1
         cp -a /var/lib/docker/aufs/diff/$MID /var/log/honeypot/$REMOTE_HOST
         #/usr/bin/docker rm -f $CID
         
