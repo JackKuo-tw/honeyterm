@@ -8,6 +8,7 @@ service honeypot
         port            = 22
         user            = root
         wait            = no
+        bind            = 0.0.0.0
         log_type        = SYSLOG authpriv info
         log_on_success  = HOST PID
         log_on_failure  = HOST

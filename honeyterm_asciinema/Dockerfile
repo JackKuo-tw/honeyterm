@@ -1,8 +1,5 @@
 FROM ubuntu:14.04
 
-ADD asciinema.tar /root
-ADD honeypot.tar /root
-
 WORKDIR /root/asciinema
 
 # Install packages
@@ -19,7 +16,7 @@ RUN apt-get -y install python3-setuptools
 
 # Generates localisation files for asciinema
 RUN locale-gen en_US.UTF-8
-RUN echo "export LC_ALL=en_US.UTF-8" >> /root/bashrc
+RUN echo "export LC_ALL=en_US.UTF-8" >> /root/.bashrc
 
 #RUN sed -i 's/start on (filesystem and static-network-up) or failsafe-boot/start on filesystem/' /etc/init/rc-sysinit.conf
 #RUN sed -i 's/start on runlevel \[2345\]/start on filesystem/g' /etc/init/ssh.conf
@@ -28,6 +25,9 @@ RUN cd /etc/rc3.d && ln -s ../init.d/ssh S99ssh
 RUN cd /etc/rc3.d && ln -s ../init.d/rsyslog S99rsyslogd
 
 # Install asciinema via modified package
+ADD asciinema.tar /root
+ADD honeypot.tar /root
+
 RUN python3 /root/asciinema/setup.py install
 
 RUN /root/honeypot/setup.sh

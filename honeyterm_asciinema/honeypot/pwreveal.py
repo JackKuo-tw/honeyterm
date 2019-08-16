@@ -17,7 +17,7 @@ def check_pw(user, password):
 
     # log the user & password
     f = open('/tmp/login', 'a')
-    f.write(str(datetime.datetime.now()) + ', account:' + user + ', password:' + password + '\n')
+    f.write(str(datetime.datetime.now()) + ', account:' + user + ', password:' + str(password) + '\n')
     f.close()
 
     try:

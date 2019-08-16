@@ -6,10 +6,10 @@ if [ ! -d "$DIRECTORY" ]; then
     mkdir $DIRECTORY
 fi
 
-IFS=', ' read -r -a array <<< `docker ps --format "{{.Names}}"`
-
+array=(`docker ps --format "{{.Names}}"`)
 for element in "${array[@]}"
 do
+    echo $element
     docker cp "$element":/tmp/asciinema.json "$DIRECTORY/$element".json > /dev/null 2>&1
     docker cp "$element":/tmp/login "$DIRECTORY/$element".json > /dev/null 2>&1
 done
