@@ -15,10 +15,15 @@ def auth_log(msg):
 def check_pw(user, password):
     """Check the password matches local unix password on file"""
 
-    # log the user & password
-    f = open('/tmp/login', 'a')
-    f.write(str(datetime.datetime.now()) + ', account:' + user + ', password:' + str(password) + '\n')
-    f.close()
+    # log the username & password
+    # in openssh-server, if user is invalid, password must be overwrite.
+    # source code:
+    # badpw[] = "\b\n\r\177INCORRECT";
+    with open('/var/log/honii/login', 'a') as f:
+        if ord(password[0]) != 8 and ord(password[1]) != 10:
+            f.write(str(datetime.datetime.now()) + ', account:' + user + ', password:' + str(password) + '\n')
+        else:
+            f.write(str(datetime.datetime.now()) + ', account:' + user + ', password:' + 'INCORRECT\n')
 
     try:
         hashed_pw = spwd.getspnam(user)[1]

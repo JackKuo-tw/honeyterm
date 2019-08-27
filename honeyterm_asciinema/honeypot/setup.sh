@@ -1,21 +1,24 @@
 #!/bin/bash
 syslog_ip=172.17.0.240
-account=guest
-password="honeypot"
+NAMES=`dirname $0`/names.txt
 
 # backup
 cp /etc/pam.d/sshd /etc/pam.d/sshd.bak
 cp /etc/rsyslog.d/50-default.conf /etc/rsyslog.d/50-default.conf.bak
 
-# account / password
-useradd -m  $account -s /bin/bash
-echo "$account:$password"|chpasswd
+# import names.txt
+exec < $NAMES
+while read username
+do
+    useradd -m $username -s /bin/bash
+    echo "$username:$username"|chpasswd
+done
 
 # run showterm right after login from bashrc
-cat >> /home/$account/.bashrc << _EOF_
+cat >> /etc/bash.bashrc << _EOF_
 if [ -z \$already_asciinema ]; then
 export already_asciinema=true
-asciinema rec /tmp/asciinema.json
+asciinema rec /var/log/honii/asciinema_\`whoami\`_\`date +%s\`.json
 exit
 fi
 _EOF_
