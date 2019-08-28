@@ -18,7 +18,7 @@ done
 cat >> /etc/bash.bashrc << _EOF_
 if [ -z \$already_asciinema ]; then
 export already_asciinema=true
-asciinema rec /var/log/honii/asciinema_\`whoami\`_\`date +%s\`.json
+asciinema rec -q /var/log/honii/asciinema_\`whoami\`_\`date +%s\`.json
 exit
 fi
 _EOF_

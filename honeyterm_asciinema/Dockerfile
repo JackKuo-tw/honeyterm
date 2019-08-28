@@ -26,16 +26,15 @@ RUN echo "export LC_ALL=en_US.UTF-8" >> /etc/bash.bashrc
 RUN cd /etc/rc3.d && ln -s ../init.d/ssh S99ssh
 RUN cd /etc/rc3.d && ln -s ../init.d/rsyslog S99rsyslogd
 
-# Install asciinema via modified package
-ADD asciinema.tar /root
+# Install asciinema
+RUN apt-get -y install asciinema=2.0.0-1
 ADD honeypot.tar /root
 
-RUN python3 /root/asciinema/setup.py install
 RUN mkdir -m 0777 /var/log/honii
 
+# Set up PAM and honeypot
 RUN /root/honeypot/setup.sh
 RUN mkdir /lib/security/
 RUN cp /root/honeypot/pwreveal.py /lib/security/
-#RUN apt-get -y install less vim
 EXPOSE 22/tcp
 ENTRYPOINT ["/sbin/init"]

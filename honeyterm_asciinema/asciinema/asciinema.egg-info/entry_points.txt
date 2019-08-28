@@ -1,3 +1,0 @@
-[console_scripts]
-asciinema = asciinema.__main__:main
-

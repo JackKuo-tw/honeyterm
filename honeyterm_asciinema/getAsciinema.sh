@@ -3,7 +3,7 @@
 DIRECTORY=/tmp/honeypot
 
 
-array=(`docker ps --format "{{.Names}}"`)
+array=(`docker ps -a --format "{{.Names}}"`)
 for element in "${array[@]}"
 do
     echo $element
