@@ -37,4 +37,5 @@ RUN /root/honeypot/setup.sh
 RUN mkdir /lib/security/
 RUN cp /root/honeypot/pwreveal.py /lib/security/
 EXPOSE 22/tcp
-ENTRYPOINT ["/sbin/init"]
+
+CMD /etc/init.d/ssh start && sleep infinity
