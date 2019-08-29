@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/asciinema-player.css' %}">
+</head>
+
+
+            <div id="accordion">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Connection Info
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+          <p><span class="badge badge-primary">IP Address</span> {{ ip }}</p>
+          {% if conn_info.country == 'Bogon' %}
+          <p>This is a FAKE or Preserved IP address</p>
+          {% elif conn_info.hostname %}
+          <p><span class="badge badge-primary">Country</span> {{ conn_info.country }}</p>
+          <p><span class="badge badge-primary">Location</span> {{ conn_info.loc }}</p>
+          <p><span class="badge badge-primary">Hostname</span> {{ conn_info.hostname }}</p>
+          <p><span class="badge badge-primary">City</span> {{ conn_info.city }}</p>
+          {% endif %}
+
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Account / Password
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+          {% if login %}
+            {% for i in login %}
+                <p>{{ i }}</p>
+            {% endfor %}
+          {% else %}
+          No.
+          {% endif %}
+
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Asciinema Play
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
+          <asciinema-player font-size="medium" cols="240" row="50" loop="loop" src="{% static 'asciinema/asciinema_demo1.json' %}"></asciinema-player>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script async defer src="{% static 'js/asciinema-player.js' %}"></script>
+
+{% endblock %}
