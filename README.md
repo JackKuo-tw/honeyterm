@@ -1,9 +1,11 @@
 # honeyterm
 Docker based high interaction honeypot
+![](README/honeyterm_illustration.png)
+![](README/honeyterm_login.png)
 
 # Environment Setup
 
-## 1. Change your ssh port from 22 to 2222(or other), and restart sshd
+1. Change your ssh port from 22 to 2222(or other), and restart sshd
 
 ```
 vi /etc/ssh/sshd_config
@@ -13,15 +15,15 @@ Port 2222
 restart sshd
 ```
 
-## 2. Install xinetd
+2. Install xinetd
 
 `sudo apt-get install xinetd`
 
-## 3. Install socat
+3. Install socat
 
 `sudo apt-get install socat`
 
-## 4. Install scripts
+4. Install scripts
 
 ```
 cp scripts/honeypot /usr/bin/honeypot
@@ -29,7 +31,7 @@ cp scripts/honeypot /usr/bin/honeypot
 cp xinetd/honeypot /etc/xinetd.d/honeypot
 ```
 
-## 5. Add honeypot port 22 to services
+5. Add honeypot port 22 to services
 
 ```
 vi /etc/services
@@ -37,7 +39,7 @@ vi /etc/services
 honeypot        22/tcp
 ```
 
-## 6. Restart xinetd
+6. Restart xinetd
 
     restart xinetd
 
@@ -55,7 +57,7 @@ make build
 ```
 
 ## Showterm
- 
+
 ```
 cd honeyterm
 make
